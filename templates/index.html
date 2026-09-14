@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Python + Flask で作ったまるばつゲーム">
+  <title>まるばつゲーム</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>まるばつゲーム</h1>
+      <p class="app__sub">Flask × JavaScript on Render</p>
+    </header>
 
+    <section class="controls">
+      <label class="field">
+        <span>モード</span>
+        <select id="mode">
+          <option value="cpu" selected>CPU と対戦</option>
+          <option value="pvp">2人で対戦</option>
+        </select>
+      </label>
+
+      <label class="field" id="difficulty-field">
+        <span>つよさ</span>
+        <select id="difficulty">
+          <option value="easy">よわい</option>
+          <option value="normal">ふつう</option>
+          <option value="hard" selected>つよい</option>
+        </select>
+      </label>
+    </section>
+
+    <p class="status" id="status" role="status" aria-live="polite">次は ✕ の番です</p>
+
+    <div class="board" id="board">
+      {% for i in range(9) %}
+      <button class="cell" type="button" data-index="{{ i }}" aria-label="マス {{ i + 1 }}"></button>
+      {% endfor %}
+    </div>
+
+    <button class="reset" id="reset" type="button">やりなおす</button>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
