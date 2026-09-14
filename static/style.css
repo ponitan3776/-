@@ -1,1 +1,196 @@
+:root {
+  --bg: #0e1120;
+  --panel: #171c33;
+  --line: #2b3252;
+  --text: #e9edff;
+  --muted: #8d95ba;
+  --x: #5eead4;
+  --o: #f472b6;
+  --accent: #6366f1;
+}
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  color: var(--text);
+  font-family: "Hiragino Sans", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  background:
+    radial-gradient(1000px 500px at 15% -10%, #232a5c 0%, transparent 60%),
+    radial-gradient(800px 400px at 100% 100%, #3b1e46 0%, transparent 55%),
+    var(--bg);
+}
+
+.app {
+  width: min(100%, 420px);
+  padding: 28px 24px 24px;
+  text-align: center;
+  background: rgba(23, 28, 51, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+}
+
+.app__sub {
+  margin: 6px 0 22px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* --- 設定 --- */
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.field select {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--text);
+  background: #12162a;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.field select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* --- ステータス --- */
+.status {
+  margin: 0 0 18px;
+  min-height: 1.5em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.status--win {
+  color: var(--x);
+}
+
+/* --- 盤面 --- */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 22px;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-family: inherit;
+  font-size: clamp(1.8rem, 9vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.cell:hover:not(:disabled) {
+  background: rgba(99, 102, 241, 0.18);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell.x {
+  color: var(--x);
+  text-shadow: 0 0 18px rgba(94, 234, 212, 0.45);
+}
+
+.cell.o {
+  color: var(--o);
+  text-shadow: 0 0 18px rgba(244, 114, 182, 0.45);
+}
+
+.cell.win {
+  background: rgba(94, 234, 212, 0.14);
+  border-color: var(--x);
+  animation: pop 0.35s ease;
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.92); }
+  60%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* --- ボタン --- */
+.reset {
+  width: 100%;
+  padding: 13px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: filter 0.18s ease, transform 0.12s ease;
+}
+
+.reset:hover {
+  filter: brightness(1.1);
+}
+
+.reset:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
